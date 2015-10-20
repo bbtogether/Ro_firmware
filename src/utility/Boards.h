@@ -203,12 +203,19 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define TOTAL_ANALOG_PINS       16
 #define TOTAL_PINS              70 // 54 digital + 16 analog
 #define VERSION_BLINK_PIN       13
+#define PIN_SERIAL1_RX          19
+#define PIN_SERIAL1_TX          18
+#define PIN_SERIAL2_RX          17
+#define PIN_SERIAL2_TX          16
+#define PIN_SERIAL3_RX          15
+#define PIN_SERIAL3_TX          14
 #define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) < TOTAL_PINS)
 #define IS_PIN_ANALOG(p)        ((p) >= 54 && (p) < TOTAL_PINS)
 #define IS_PIN_PWM(p)           digitalPinHasPWM(p)
 #define IS_PIN_SERVO(p)         ((p) >= 2 && (p) - 2 < MAX_SERVOS)
 #define IS_PIN_I2C(p)           ((p) == 20 || (p) == 21)
 #define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
+#define IS_PIN_SERIAL(p)        ((p) > 13 && (p) < 20)
 #define IS_PIN_INTERRUPT(p)     ((p)==2 || (p)==3 || (p)==18 || (p)==19 || (p)==20 || (p)==21)
 #define PIN_TO_DIGITAL(p)       (p)
 #define PIN_TO_ANALOG(p)        ((p) - 54)
@@ -221,11 +228,18 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define TOTAL_ANALOG_PINS       12
 #define TOTAL_PINS              66 // 54 digital + 12 analog
 #define VERSION_BLINK_PIN       13
+#define PIN_SERIAL1_RX          19
+#define PIN_SERIAL1_TX          18
+#define PIN_SERIAL2_RX          17
+#define PIN_SERIAL2_TX          16
+#define PIN_SERIAL3_RX          15
+#define PIN_SERIAL3_TX          14
 #define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) < TOTAL_PINS)
 #define IS_PIN_ANALOG(p)        ((p) >= 54 && (p) < TOTAL_PINS)
 #define IS_PIN_PWM(p)           digitalPinHasPWM(p)
 #define IS_PIN_SERVO(p)         ((p) >= 2 && (p) - 2 < MAX_SERVOS)
 #define IS_PIN_I2C(p)           ((p) == 20 || (p) == 21) // 70 71
+#define IS_PIN_SERIAL(p)        ((p) > 13 && (p) < 20)
 #define IS_PIN_INTERRUPT(p)     IS_PIN_DIGITAL(p)
 #define PIN_TO_DIGITAL(p)       (p)
 #define PIN_TO_ANALOG(p)        ((p) - 54)
@@ -381,6 +395,11 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 // as long this is not defined for all boards:
 #ifndef IS_PIN_SPI
 #define IS_PIN_SPI(p)           (0)
+#endif
+
+
+#ifndef IS_PIN_SERIAL
+#define IS_PIN_SERIAL(p)        0
 #endif
 
 /*==============================================================================

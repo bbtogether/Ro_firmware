@@ -27,6 +27,7 @@
 
 
 #include "ConfigurableFirmata.h"
+#include <SoftwareSerial.h>
 
 /*
  * by default Firmata uses the Serial-port (over USB) of Arduino.
@@ -107,6 +108,13 @@ OneWireFirmata oneWire;
 
 #include <StepperFirmata.h>
 StepperFirmata stepper;
+
+#include <SerialFirmata.h>
+SerialFirmata serial;
+
+//add by Eric Wang for Rocomb firmata
+#include <RocombFirmata.h>
+RocombFirmata rocomb;
 
 #include <FirmataExt.h>
 FirmataExt firmataExt;
@@ -238,6 +246,14 @@ void setup()
 #ifdef StepperFirmata_h
   firmataExt.addFeature(stepper);
 #endif
+#ifdef SerialFirmata_h
+  firmataExt.addFeature(serial);
+#endif
+//add by Eric Wang for Rocomb firmata
+#ifdef RocombFirmata_h
+  firmataExt.addFeature(rocomb);
+#endif
+
 #ifdef FirmataReporting_h
   firmataExt.addFeature(reporting);
 #endif
@@ -326,6 +342,14 @@ runtasks: scheduler.runTasks();
 #ifdef StepperFirmata_h
   stepper.update();
 #endif
+#ifdef SerialFirmata_h
+  serial.update();
+#endif
+//add by Eric Wang for Rocomb firmata
+#ifdef RocombFirmata_h
+  rocomb.update();
+#endif
+
 #if defined NETWORK_FIRMATA && !defined local_ip &&!defined _YUN_CLIENT_H_
   if (Ethernet.maintain())
   {

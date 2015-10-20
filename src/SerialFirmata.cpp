@@ -328,8 +328,9 @@ boolean SerialFirmata::handleSysex(byte command, byte argc, byte *argv)
 		  return false;
       }
 	  //end of switch
+	  return true;
   }
-  return true;
+  return false;
 }
 
 
